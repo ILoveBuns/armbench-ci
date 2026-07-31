@@ -1,0 +1,27 @@
+name: Arm64 benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python benchmark.py --output artifacts/report.json
+      - run: python render_report.py artifacts/report.json artifacts/report.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: armbench-report
+          path: artifacts/
