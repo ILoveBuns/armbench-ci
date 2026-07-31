@@ -12,7 +12,7 @@ import onnxruntime as ort
 import psutil
 from onnxruntime.quantization import QuantType, quantize_dynamic
 from sklearn.datasets import make_classification
-from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from skl2onnx import convert_sklearn
@@ -25,17 +25,24 @@ def percentile(values, q):
 
 def train_and_export(workdir: Path):
     x, y = make_classification(
-        n_samples=12000,
-        n_features=768,
-        n_informative=96,
-        n_redundant=48,
+        n_samples=4000,
+        n_features=256,
+        n_informative=64,
+        n_redundant=24,
         n_classes=12,
         random_state=42,
     )
     x_train, x_test, y_train, y_test = train_test_split(
         x.astype(np.float32), y, test_size=0.2, random_state=42, stratify=y
     )
-    model = LogisticRegression(max_iter=250, solver="lbfgs", n_jobs=1)
+    model = MLPClassifier(
+        hidden_layer_sizes=(192, 96),
+        activation="relu",
+        max_iter=45,
+        batch_size=128,
+        early_stopping=True,
+        random_state=42,
+    )
     model.fit(x_train, y_train)
     fp32 = workdir / "intent-fp32.onnx"
     int8 = workdir / "intent-int8.onnx"
