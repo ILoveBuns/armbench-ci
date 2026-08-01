@@ -35,6 +35,11 @@ The first successful public native run and its committed evidence are available
 in [`results/arm64-report.md`](results/arm64-report.md). Submission-ready wording
 and evidence links are collected in [`SUBMISSION_DRAFT.md`](SUBMISSION_DRAFT.md).
 
+## Demo video
+
+Watch or download the narrated 1080p walkthrough:
+[`ArmBench CI demo`](assets/ArmBench-CI-demo.mp4).
+
 ## Why this matters
 
 Teams often claim that quantization helps without publishing the accuracy,
