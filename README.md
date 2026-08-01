@@ -31,6 +31,10 @@ Run the **Arm64 benchmark** workflow manually or push to `main`. Download the
 `armbench-report` artifact from the workflow run. The Markdown report includes
 the exact machine architecture and package versions.
 
+The first successful public native run and its committed evidence are available
+in [`results/arm64-report.md`](results/arm64-report.md). Submission-ready wording
+and evidence links are collected in [`SUBMISSION_DRAFT.md`](SUBMISSION_DRAFT.md).
+
 ## Why this matters
 
 Teams often claim that quantization helps without publishing the accuracy,

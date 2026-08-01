@@ -1,0 +1,32 @@
+{
+  "source_run": "https://github.com/ILoveBuns/armbench-ci/actions/runs/30688810539",
+  "system": {
+    "architecture": "aarch64",
+    "platform": "Linux-6.17.0-1020-azure-aarch64-with-glibc2.39",
+    "python": "3.12.13",
+    "onnxruntime": "1.20.1",
+    "cpu_count": 4
+  },
+  "fp32": {
+    "bytes": 277454,
+    "accuracy": 0.41625,
+    "latency_ms_p50": 0.013935,
+    "latency_ms_p95": 0.016486600000000004,
+    "latency_ms_mean": 0.014602576666666667,
+    "throughput_samples_per_sec": 1065917.6818508967
+  },
+  "int8": {
+    "bytes": 73817,
+    "accuracy": 0.40875,
+    "latency_ms_p50": 0.013047,
+    "latency_ms_p95": 0.013743400000000003,
+    "latency_ms_mean": 0.013505886666666666,
+    "throughput_samples_per_sec": 2216846.3697428796
+  },
+  "peak_rss_bytes": 220934144,
+  "comparison": {
+    "size_reduction_percent": 73.3948690593756,
+    "p50_speedup": 1.0680616233616924,
+    "accuracy_delta": -0.007500000000000007
+  }
+}
