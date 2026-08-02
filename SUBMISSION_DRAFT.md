@@ -10,8 +10,12 @@ model size, latency, throughput, and process memory on a native Arm64 runner.
 
 The public GitHub Actions run `30688810539` completed successfully on
 `aarch64`. Relative to FP32, INT8 reduced the model by 73.39%, improved p50
-latency by 1.07×, and changed accuracy by -0.0075. The committed JSON and
-Markdown reports preserve the exact runner and package evidence.
+latency by 1.07×, improved p95 latency by 1.20×, increased the single-run
+throughput measurement by 2.08×, and changed accuracy by -0.0075. The next
+native run upgrades this evidence to repeated latency trials and median
+throughput, making the comparison less sensitive to hosted-run noise. The
+committed JSON and Markdown reports preserve the exact runner, package, and
+measurement-protocol evidence.
 
 ## Reproduce
 

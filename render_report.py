@@ -17,6 +17,12 @@ text = f"""# ArmBench CI native benchmark
 | Python | {r['system']['python']} |
 | ONNX Runtime | {r['system']['onnxruntime']} |
 
+## Measurement protocol
+
+- 30 warm-up inferences per model.
+- {r['measurement']['latency_trials']} latency trials × {r['measurement']['latency_rounds_per_trial']} single-sample inferences.
+- {r['measurement']['throughput_trials']} full-test-set trials; the table reports the median.
+
 ## Results
 
 | Metric | FP32 | INT8 |
@@ -31,6 +37,8 @@ text = f"""# ArmBench CI native benchmark
 
 - Size reduction: **{r['comparison']['size_reduction_percent']:.2f}%**
 - p50 speedup: **{r['comparison']['p50_speedup']:.2f}×**
+- p95 speedup: **{r['comparison']['p95_speedup']:.2f}×**
+- Median throughput speedup: **{r['comparison']['throughput_speedup']:.2f}×**
 - Accuracy delta: **{r['comparison']['accuracy_delta']:+.4f}**
 - Process RSS after benchmark: **{r['peak_rss_bytes']/1024/1024:.1f} MiB**
 """
