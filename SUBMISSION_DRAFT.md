@@ -3,7 +3,7 @@
 ## Project
 
 ArmBench CI is a reproducible CI benchmark that exports a compact intent
-classifier to ONNX, applies static INT8 quantization, and measures accuracy,
+classifier to ONNX, applies dynamic INT8 quantization, and measures accuracy,
 model size, latency, throughput, and process memory on a native Arm64 runner.
 
 ## Verified Arm64 result
