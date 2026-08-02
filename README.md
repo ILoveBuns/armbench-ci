@@ -9,7 +9,7 @@ The benchmark reports:
 
 - model size and compression ratio;
 - accuracy agreement between FP32 and INT8;
-- p50/p95 inference latency and throughput;
+- p50/p95 inference latency and median throughput across repeated trials;
 - peak resident memory;
 - CPU and operating-system evidence from the runner.
 
@@ -34,6 +34,11 @@ the exact machine architecture and package versions.
 The first successful public native run and its committed evidence are available
 in [`results/arm64-report.md`](results/arm64-report.md). Submission-ready wording
 and evidence links are collected in [`SUBMISSION_DRAFT.md`](SUBMISSION_DRAFT.md).
+
+The measurement protocol uses 30 warm-up calls, 1,500 timed single-sample
+inferences, and nine full-test-set throughput trials per model. Reporting a
+median throughput and both p50 and p95 latency makes the optimization claim less
+sensitive to a single noisy hosted-run measurement.
 
 ## Demo video
 

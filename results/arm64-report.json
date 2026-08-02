@@ -1,5 +1,4 @@
 {
-  "source_run": "https://github.com/ILoveBuns/armbench-ci/actions/runs/30688810539",
   "system": {
     "architecture": "aarch64",
     "platform": "Linux-6.17.0-1020-azure-aarch64-with-glibc2.39",
@@ -7,26 +6,39 @@
     "onnxruntime": "1.20.1",
     "cpu_count": 4
   },
+  "measurement": {
+    "warmup_runs": 30,
+    "latency_rounds_per_trial": 300,
+    "latency_trials": 5,
+    "throughput_trials": 9,
+    "throughput_statistic": "median"
+  },
   "fp32": {
     "bytes": 277454,
     "accuracy": 0.41625,
-    "latency_ms_p50": 0.013935,
-    "latency_ms_p95": 0.016486600000000004,
-    "latency_ms_mean": 0.014602576666666667,
-    "throughput_samples_per_sec": 1065917.6818508967
+    "latency_ms_p50": 0.013815,
+    "latency_ms_p95": 0.014711799999999999,
+    "latency_ms_mean": 0.014412662666666666,
+    "throughput_samples_per_sec": 1189746.7624016227,
+    "throughput_samples_per_sec_min": 1024697.7781990424,
+    "throughput_samples_per_sec_max": 1233155.8616522439
   },
   "int8": {
     "bytes": 73817,
     "accuracy": 0.40875,
-    "latency_ms_p50": 0.013047,
-    "latency_ms_p95": 0.013743400000000003,
-    "latency_ms_mean": 0.013505886666666666,
-    "throughput_samples_per_sec": 2216846.3697428796
+    "latency_ms_p50": 0.012967,
+    "latency_ms_p95": 0.013391799999999999,
+    "latency_ms_mean": 0.013329600666666667,
+    "throughput_samples_per_sec": 2689066.5913728024,
+    "throughput_samples_per_sec_min": 2040243.8091351918,
+    "throughput_samples_per_sec_max": 2821769.955204402
   },
-  "peak_rss_bytes": 220934144,
+  "peak_rss_bytes": 221028352,
   "comparison": {
     "size_reduction_percent": 73.3948690593756,
-    "p50_speedup": 1.0680616233616924,
+    "p50_speedup": 1.0653967764324825,
+    "p95_speedup": 1.098567780283457,
+    "throughput_speedup": 2.260200806047711,
     "accuracy_delta": -0.007500000000000007
   }
 }

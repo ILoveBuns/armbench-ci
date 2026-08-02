@@ -57,7 +57,14 @@ def train_and_export(workdir: Path):
     return x_test, y_test, fp32, int8
 
 
-def benchmark_model(path: Path, x_test, y_test, rounds=300):
+def benchmark_model(
+    path: Path,
+    x_test,
+    y_test,
+    latency_rounds=300,
+    latency_trials=5,
+    throughput_trials=9,
+):
     session = ort.InferenceSession(
         str(path), providers=["CPUExecutionProvider"],
         sess_options=ort.SessionOptions(),
@@ -67,14 +74,23 @@ def benchmark_model(path: Path, x_test, y_test, rounds=300):
     for _ in range(30):
         session.run(None, {input_name: sample})
     latencies = []
-    for i in range(rounds):
-        row = x_test[i % len(x_test) : i % len(x_test) + 1]
+    for trial in range(latency_trials):
+        for i in range(latency_rounds):
+            row_index = (trial * latency_rounds + i) % len(x_test)
+            row = x_test[row_index : row_index + 1]
+            start = time.perf_counter_ns()
+            session.run(None, {input_name: row})
+            latencies.append((time.perf_counter_ns() - start) / 1_000_000)
+
+    throughput_samples = []
+    outputs = None
+    for _ in range(throughput_trials):
         start = time.perf_counter_ns()
-        session.run(None, {input_name: row})
-        latencies.append((time.perf_counter_ns() - start) / 1_000_000)
-    start = time.perf_counter()
-    outputs = session.run(None, {input_name: x_test})
-    elapsed = time.perf_counter() - start
+        outputs = session.run(None, {input_name: x_test})
+        elapsed_seconds = (time.perf_counter_ns() - start) / 1_000_000_000
+        throughput_samples.append(len(x_test) / elapsed_seconds)
+
+    assert outputs is not None
     predictions = np.asarray(outputs[0]).reshape(-1)
     return {
         "bytes": path.stat().st_size,
@@ -82,7 +98,9 @@ def benchmark_model(path: Path, x_test, y_test, rounds=300):
         "latency_ms_p50": percentile(latencies, 50),
         "latency_ms_p95": percentile(latencies, 95),
         "latency_ms_mean": float(statistics.mean(latencies)),
-        "throughput_samples_per_sec": float(len(x_test) / elapsed),
+        "throughput_samples_per_sec": float(statistics.median(throughput_samples)),
+        "throughput_samples_per_sec_min": float(min(throughput_samples)),
+        "throughput_samples_per_sec_max": float(max(throughput_samples)),
     }
 
 
@@ -104,6 +122,13 @@ def main():
             "onnxruntime": ort.__version__,
             "cpu_count": psutil.cpu_count(logical=True),
         },
+        "measurement": {
+            "warmup_runs": 30,
+            "latency_rounds_per_trial": 300,
+            "latency_trials": 5,
+            "throughput_trials": 9,
+            "throughput_statistic": "median",
+        },
         "fp32": benchmark_model(fp32_path, x_test, y_test),
         "int8": benchmark_model(int8_path, x_test, y_test),
     }
@@ -111,6 +136,8 @@ def main():
     report["comparison"] = {
         "size_reduction_percent": 100 * (1 - report["int8"]["bytes"] / report["fp32"]["bytes"]),
         "p50_speedup": report["fp32"]["latency_ms_p50"] / report["int8"]["latency_ms_p50"],
+        "p95_speedup": report["fp32"]["latency_ms_p95"] / report["int8"]["latency_ms_p95"],
+        "throughput_speedup": report["int8"]["throughput_samples_per_sec"] / report["fp32"]["throughput_samples_per_sec"],
         "accuracy_delta": report["int8"]["accuracy"] - report["fp32"]["accuracy"],
     }
     output.write_text(json.dumps(report, indent=2), encoding="utf-8")
