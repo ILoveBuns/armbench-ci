@@ -34,6 +34,9 @@ the exact machine architecture and package versions.
 The first successful public native run and its committed evidence are available
 in [`results/arm64-report.md`](results/arm64-report.md). Submission-ready wording
 and evidence links are collected in [`SUBMISSION_DRAFT.md`](SUBMISSION_DRAFT.md).
+The matching policy decision is committed as
+[`results/arm64-gate.md`](results/arm64-gate.md); the latest main-branch Arm64
+workflow also passed the same gate.
 
 The measurement protocol uses 30 warm-up calls, 1,500 timed single-sample
 inferences, and nine full-test-set throughput trials per model. Reporting a
