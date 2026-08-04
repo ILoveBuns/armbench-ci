@@ -23,6 +23,11 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python benchmark.py --output artifacts/report.json
       - run: python render_report.py artifacts/report.json artifacts/report.md
+      - name: Enforce optimization policy
+        run: |
+          python validate_report.py artifacts/report.json --output artifacts/gate.md
+          cat artifacts/gate.md >> "$GITHUB_STEP_SUMMARY"
+      - run: python -m unittest discover -s tests -v
       - uses: actions/upload-artifact@v4
         with:
           name: armbench-report
