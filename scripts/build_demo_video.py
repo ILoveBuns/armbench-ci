@@ -84,8 +84,8 @@ slides.append(im)
 
 slides.append(screenshot_slide(ROOT/"video-repo.png","Open source","One-command reproduction","Apache-2.0 source, pinned dependencies, workflow definition, and a committed reference report.",ROOT/"video-repo.png"))
 
-im,d=base("Pipeline", "From training to an auditable report", "Every run records the architecture and software environment before comparing FP32 and statically quantized INT8 models.")
-steps=[("1","Train","Deterministic intent classifier"),("2","Export","FP32 model to ONNX"),("3","Quantize","Static INT8 calibration"),("4","Measure","Accuracy, size, p50/p95, throughput, RSS"),("5","Publish","JSON, Markdown, workflow artifact")]
+im,d=base("Pipeline", "From training to an auditable report", "Every run records the architecture and software environment before comparing FP32 and dynamically quantized INT8 models.")
+steps=[("1","Train","Deterministic intent classifier"),("2","Export","FP32 model to ONNX"),("3","Quantize","Dynamic INT8 weights"),("4","Measure","Accuracy, size, p50/p95, throughput, RSS"),("5","Publish","JSON, Markdown, workflow artifact")]
 for i,(n,t,note) in enumerate(steps):
     y=370+i*118
     d.ellipse((100,y,172,y+72),fill=PURPLE)
@@ -100,7 +100,7 @@ slides.append(screenshot_slide(ROOT/"video-run.png","Native execution","Public A
 im,d=base("Measured result", "INT8 trade-offs on native Arm64", "One reproducible hosted run. These are workload-specific measurements, not universal performance claims.")
 card(d,(80,390,520,790),"MODEL SIZE","−73.39%","271.0 → 72.1 KiB",GREEN)
 card(d,(550,390,990,790),"P50 LATENCY","1.07×","0.0139 → 0.0130 ms",CYAN)
-card(d,(1020,390,1460,790),"THROUGHPUT","2.08×","1.07M → 2.22M samples/s",PURPLE)
+card(d,(1020,390,1460,790),"THROUGHPUT","2.26×","median across 9 trials",PURPLE)
 card(d,(1490,390,1840,790),"ACCURACY","−0.0075","0.4163 → 0.4088","#fbbf24")
 d.text((110,850),"FP32",font=font(25,True),fill=MUTED); d.rectangle((220,852,810,880),fill="#38536b")
 d.text((110,910),"INT8",font=font(25,True),fill=MUTED); d.rectangle((220,912,377,940),fill=GREEN)
