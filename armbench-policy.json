@@ -1,0 +1,8 @@
+{
+  "allowed_architectures": ["aarch64", "arm64"],
+  "minimum_size_reduction_percent": 60.0,
+  "minimum_throughput_speedup": 1.5,
+  "minimum_p50_speedup": 0.95,
+  "minimum_p95_speedup": 0.95,
+  "minimum_accuracy_delta": -0.02
+}

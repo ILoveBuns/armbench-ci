@@ -49,9 +49,20 @@ Watch or download the narrated 1080p walkthrough:
 
 Teams often claim that quantization helps without publishing the accuracy,
 memory, and tail-latency trade-off on the target architecture. ArmBench CI turns
-that claim into a repeatable CI gate. The included workload is intentionally
+that claim into a repeatable CI gate. `armbench-policy.json` requires native
+Arm execution, at least 60% size reduction and 1.5× median throughput, no more
+than 5% p50/p95 latency regression, and no more than 0.02 accuracy loss. A pull
+request fails when any threshold is missed, and the Markdown gate report is
+published with the benchmark artifact. The included workload is intentionally
 small enough for a standard CPU-only cloud instance and can be replaced with a
 larger ONNX model later.
+
+Run the committed evidence through the same gate locally:
+
+```bash
+python validate_report.py results/arm64-report.json
+python -m unittest discover -s tests -v
+```
 
 ## License
 

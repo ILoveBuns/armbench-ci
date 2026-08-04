@@ -16,6 +16,11 @@ and nine full-test-set throughput trials per model, making the comparison less
 sensitive to hosted-run noise. The committed JSON and Markdown reports preserve
 the exact runner, package, and measurement-protocol evidence.
 
+The workflow enforces those claims as a real CI policy: native Arm64, at least
+60% size reduction, 1.5× median throughput, bounded latency regression, and no
+more than 0.02 accuracy loss. It produces a readable gate report and fails the
+pull request if any requirement is missed.
+
 ## Reproduce
 
 1. Open the repository Actions page.
@@ -29,6 +34,8 @@ the exact runner, package, and measurement-protocol evidence.
 - Successful native run: `https://github.com/ILoveBuns/armbench-ci/actions/runs/30758735011`
 - Workflow: `.github/workflows/arm64-benchmark.yml`
 - Committed report: `results/arm64-report.md`
+- Machine-readable policy: `armbench-policy.json`
+- Policy validator and tests: `validate_report.py`, `tests/test_validate_report.py`
 
 ## Claims boundary
 
