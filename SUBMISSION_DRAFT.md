@@ -32,8 +32,10 @@ pull request if any requirement is missed.
 
 - Repository: `https://github.com/ILoveBuns/armbench-ci`
 - Successful native run: `https://github.com/ILoveBuns/armbench-ci/actions/runs/30758735011`
+- Latest policy-enforced main run: `https://github.com/ILoveBuns/armbench-ci/actions/runs/30881936662`
 - Workflow: `.github/workflows/arm64-benchmark.yml`
 - Committed report: `results/arm64-report.md`
+- Committed gate decision: `results/arm64-gate.md`
 - Machine-readable policy: `armbench-policy.json`
 - Policy validator and tests: `validate_report.py`, `tests/test_validate_report.py`
 
