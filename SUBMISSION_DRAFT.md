@@ -79,3 +79,14 @@ decision as workflow artifacts.
 
 Do not describe the current implementation as a digits image classifier,
 PyTorch pipeline, static quantization, or calibration-based quantization.
+
+## Corrected demo artifact
+
+- Duration: 130.815 seconds (under three minutes)
+- Resolution: 1920×1080 at 25 fps
+- Video/audio: H.264 + AAC, fully decoded with zero ffmpeg errors
+- SHA-256: `4e3031eef42e2466360f19efd1d5b637895f2c6043eb6021cb94040228d0db82`
+
+The corrected video explicitly says dynamic INT8 weight quantization and shows
+the committed 2.26× median throughput result. It replaces the old artifact that
+contained stale static-quantization and 2.08× slide text.

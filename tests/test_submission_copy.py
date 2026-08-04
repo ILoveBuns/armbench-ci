@@ -22,6 +22,10 @@ class SubmissionCopyTest(unittest.TestCase):
         )
         self.assertIn(expected, copy)
         self.assertTrue((ROOT / "assets/ArmBench-CI-demo.mp4").is_file())
+        self.assertIn(
+            "4e3031eef42e2466360f19efd1d5b637895f2c6043eb6021cb94040228d0db82",
+            copy,
+        )
 
     def test_video_source_has_no_stale_quantization_claims(self):
         source = (ROOT / "scripts/build_demo_video.py").read_text(encoding="utf-8")
