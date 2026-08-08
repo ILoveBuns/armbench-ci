@@ -45,8 +45,9 @@ sensitive to a single noisy hosted-run measurement.
 
 ## Demo video
 
-Watch or download the narrated 1080p walkthrough:
-[`ArmBench CI demo`](assets/ArmBench-CI-demo.mp4).
+Watch the narrated 1080p [ArmBench CI demo on YouTube](https://youtu.be/ddOx7i0yGRk).
+The exact published artifact remains available at
+[`assets/ArmBench-CI-demo.mp4`](assets/ArmBench-CI-demo.mp4) for reproducibility.
 The current 130.815-second artifact is H.264/AAC and matches the dynamic INT8
 implementation and committed 2.26× median-throughput evidence.
 
